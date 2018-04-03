@@ -1,0 +1,25 @@
+.cell {
+	border: 1px solid white;
+	display: inline-block;
+	margin: 0 auto;
+}
+.row {
+	display: block;
+}
+.dead {
+	background-color: black;
+}
+.alive {
+	background-color: red;
+}
+table {
+	margin: 0 auto;
+	border-collapse: collapse;
+	background-color: black;
+	height:100%;
+	width: 100%;
+}
+
+body {
+	background-color: black;
+}
