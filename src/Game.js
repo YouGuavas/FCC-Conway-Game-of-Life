@@ -3,60 +3,54 @@ import './Game.css';
 
 
 export class Game extends Component {
+	gameOfLife() {
+		let a = [];
+		let b = [];
+		for ( let i = 0; i < this.state.height * this.state.width; i++) {
+			a.push({id:i, status: document.getElementById(String(i)).className.indexOf('alive') === -1 ? 'dead' : 'alive'});
+		}
+
+		const getCount = td => {
+			let max = this.state.width * this.state.height;
+			let indices = [td+1, td-1, td+this.state.width, td-this.state.width, td+this.state.width+1, td+this.state.width-1, td-this.state.width+1, td-this.state.width-1]
+			let count = 0;
+			indices.map(element => {
+				if (element >= 0 && element < max) {
+					if (a[element].status === 'alive' || a[element].status === 'young') { count++ };
+					return a[element].status;
+				} else {
+					return 'null';
+				}
+			});
+			return count;
+		}
+		for (let i = 0; i < a.length; i++) {
+			const counter = getCount(i);
+			(counter > 3 || counter < 2) ? b.push({ id: i, status: 'dead'}) : (a[i].status == 'alive') ? b.push({id:i, status:'alive'}) : (counter === 3) ? b.push({id:i, status:'alive'}) : b.push({id:i, status:'dead'});
+		}
+		for (let i = 0; i < b.length; i++) {
+			document.getElementById(String(i)).className = b[i].status + ' cell';
+		}
+
+	}
+
+
 	createCells(d) {
 		let cells = [];
 		for (let i = 0; i < d.y; i++) {
 			let row = [];
-			for (let j = 0; j < d.x; j++) {row.push([]);}
+			for (let j = 0; j < d.x; j++) {
+				row.push([]);
+			}
 			cells.push(row);
 		}
 		return cells;
 	}
-	gameOfLife() {
-		let getCount = (arr, instance) => {
-			let count = 0;
-			arr.map(g => {
-				if (g === instance) {count++;}
-				return null;
-				});
-			return count;
-		}
-		let getStatus = (c) => {
-			const max = this.state.height * this.state.width;
-			const indices = [c-1, c+1, c-this.state.width, c+this.state.width, c-this.state.width, c-this.state.width, c+this.state.width, c+this.state.width];
-			let statuses = indices.map(e => {
-				if(e>=0 && e<max) {return pseudoCells[e].status;} else {
-					if (e < 0) {return pseudoCells[max+e-1].status;} else {
-						return pseudoCells[(e-max)+1].status}}});
-			let counter = getCount(statuses, 'alive cell');
-			if (counter > 3 || counter < 2) {
-				if(pseudoCells[c].status === 'alive cell') {pseudoCells[c].status = 'dead cell';} else {
-					if (counter === 3) {
-						if (pseudoCells[c].status === 'dead cell') {pseudoCells[c].status = 'alive cell';
-					}}}}
-				}
-
-		let cells = document.getElementsByClassName('cell');
-		let newCells = [];
-		let pseudoCells = Array.prototype.map.call(cells, element => {return{status: element.className};});
-		let p = new Promise((resolve, reject) => {
-			pseudoCells.map(element => {
-				let myInd = pseudoCells.indexOf(element);
-				newCells.push(getStatus(myInd));
-			});
-			resolve();
-		});
-		p.then(() => {
-			Array.prototype.map.call(cells, element => {
-				const thisInd = Array.prototype.indexOf.call(cells, element);
-				element.className = newCells[thisInd].status;
-		});
-	});}
 	setDimensions(a, b) {
-		this.setState({height:b, width:a});
+		this.setState({width:a, height:b});
 	}
 	clear() {
-		let cells = document.getElementsByClassName('cell');
+		const cells = document.getElementsByClassName('cell');
 		Array.prototype.map.call(cells, element => {
 			element.className = 'dead cell';
 		});
@@ -65,12 +59,13 @@ export class Game extends Component {
 		super(props);
 		this.state = {
 			height: 30,
-			width:50
+			width:50,
+			cells: []
 		}
 		this.createCells = this.createCells.bind(this);
-		this.gameOfLife = this.gameOfLife.bind(this);
 		this.setDimensions = this.setDimensions.bind(this);
 		this.clear = this.clear.bind(this);
+		this.gameOfLife = this.gameOfLife.bind(this);
 	}
 	render() {
 		return(
@@ -91,37 +86,38 @@ export class Game extends Component {
 
 class Cells extends Component {
 	render() {
-		let height = Math.floor(400/(this.props.handlers.cells.y));
+		const height = Math.floor(400/(this.props.handlers.cells.y));
+		const theseCells = this.props.handlers.createCells(this.props.handlers.cells);
+		let tC = [];
 		return(
 				<table className="gameBoard">
 					<tbody>
-					{this.props.handlers.createCells(this.props.handlers.cells)
-						.map(element => <tr className="row" style={{height:height}}>{element
-							.map(() => <Cell className='cell' dimension={{height:height, width:height}}/>)}</tr>)}
+					{theseCells.map(element => <tr className="row" style={{height:height}}>{element
+							.map(e => <Cell id={(theseCells.indexOf(element))*this.props.handlers.cells.x +
+							 (theseCells[theseCells.indexOf(element)].indexOf(e))} className='cell' dimension={{height:height}}/>)}</tr>)}
 					</tbody>
 				</table>
-					)
-			}
+		)
+	}
 }
 
 class Cell extends Component {
-	handleClick() {
-		if (this.state.life === 'dead') {
-			this.setState({life: 'alive'});
-		} else {
-			this.setState({life: 'dead'});
-		}
-	}
+	handleClick() { this.state.life == 'alive' ? this.setState({ life: 'dead' }) : this.setState({ life: 'alive' }); } 
+	//If cell is alive, kill it. Otherwise, bring it to life.
+
 	constructor(props) {
 		super(props);
-		this.state = {life:'dead'}
+		this.state = {
+			life:'dead'
+		}
 		this.handleClick = this.handleClick.bind(this);
 	}
+
 	render() {
-		let classes = this.state.life + ' cell'
 		return(
-			<td className={classes} style={{height:this.props.dimension.height+'px', width:this.props.dimension.width+'px'}} onClick={this.handleClick}></td>
+			<td id={this.props.id} className={this.state.life + ' cell'} style={{height:this.props.dimension.height+'px', width:this.props.dimension.height+'px'}} onClick={this.handleClick}></td>
 			)
 	}
 }
+
 class Button extends Component {render() {return(<button onClick={this.props.handleClick}>{this.props.val}</button>)}}
