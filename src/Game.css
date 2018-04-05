@@ -1,25 +1,31 @@
-.cell {
-	border: 1px solid white;
-	display: inline-block;
-	margin: 0 auto;
-}
-.row {
-	display: block;
-}
 .dead {
 	background-color: black;
 }
-.alive {
+.old {
 	background-color: red;
+}
+.young {
+	background-color: pink;
+}
+.gameBoard {
+	background-color: white;
+	padding:5px;
 }
 table {
 	margin: 0 auto;
 	border-collapse: collapse;
-	background-color: black;
 	height:100%;
-	width: 100%;
 }
-
+td {
+	border: 1px solid white;
+	margin: 0;
+	float: left;
+	height:11px;
+	width: 11px;
+}
 body {
 	background-color: black;
+}
+h3 {
+	color:white;
 }

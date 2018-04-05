@@ -7,7 +7,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title"><a href="https://www.math.cornell.edu/~lipa/mec/lesson6.html" target="_blank">Conway's Game of Life</a></h1>
+          <h1 className="App-title"><a href="https://www.math.cornell.edu/~lipa/mec/lesson6.html" target="_blank" rel="noopener noreferrer">Conway's Game of Life</a></h1>
         </header>
         <Game />
       </div>
