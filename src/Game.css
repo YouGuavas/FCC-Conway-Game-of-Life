@@ -1,20 +1,43 @@
 .dead {
-	background-color: black;
+	background-color: #592c05;
 }
 .old {
-	background-color: red;
+	background-color: darkgreen;
 }
 .young {
-	background-color: pink;
+	background-color: lightgreen;
+}
+.buttonRow {
+	width:60%;
+	margin: 0 auto;
+	border-radius:5px 5px 0px 0px;
+	padding:5px;
+	background-color: slategrey;
+	box-shadow: -5px 8px 15px black;
+}
+button {
+	background-color: black;
+	color:white;
+	padding:3px;
+	border-radius: 80%;
+	margin: 3px;
+	border:2px solid lightgrey;
 }
 .active { 
-	background-color: pink;
+	background-color: lightgreen;
+	color:black;
  }
+.gameContainer {
+	border-radius: 5px;
+	box-shadow: -5px 8px 15px black;
+	width:70%;
+	background-color: slategrey;
+	padding:10px;
+	margin: 0 auto;
+}
 .gameBoard {
-	background-color: darkred;
-	border:1px solid white;
+	background-color: darkgreen;
 	padding:5px;
-	width: 70%;
 	margin: 0 auto;
 }
 .gameBoard h3 {
@@ -29,16 +52,15 @@
 table {
 	margin: 0 auto;
 	border-collapse: collapse;
-	height:100%;
-	width: 100%;
 }
 td {
-	border: 1px solid white;
+	border-radius:100%;
+	border: 1px solid lightgrey;
 	margin: 0 auto;
 	float: left;
 }
 body {
-	background-color: darkred;
+	background-color: darkgreen;
 }
 h3 {
 	color:white;
