@@ -7,24 +7,38 @@
 .young {
 	background-color: pink;
 }
+.active { 
+	background-color: pink;
+ }
 .gameBoard {
-	background-color: white;
+	background-color: darkred;
+	border:1px solid white;
 	padding:5px;
+	width: 70%;
+	margin: 0 auto;
+}
+.gameBoard h3 {
+	width: 50%;
+	margin: 0 auto;
+	padding:20px;
+}
+.gameBoard div {
+	width:50%;
+	margin: 0 auto;
 }
 table {
 	margin: 0 auto;
 	border-collapse: collapse;
 	height:100%;
+	width: 100%;
 }
 td {
 	border: 1px solid white;
-	margin: 0;
+	margin: 0 auto;
 	float: left;
-	height:11px;
-	width: 11px;
 }
 body {
-	background-color: black;
+	background-color: darkred;
 }
 h3 {
 	color:white;
