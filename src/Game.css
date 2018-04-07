@@ -1,11 +1,11 @@
 .dead {
-	background-color: #592c05;
+	background-color: darkblue;/*#592c05;*/
 }
 .old {
-	background-color: darkgreen;
+	background-color: slategrey;
 }
 .young {
-	background-color: lightgreen;
+	background-color: white;
 }
 .buttonRow {
 	width:60%;
@@ -36,7 +36,7 @@ button {
 	margin: 0 auto;
 }
 .gameBoard {
-	background-color: darkgreen;
+	background-color: lightgrey;
 	padding:5px;
 	margin: 0 auto;
 }
@@ -60,7 +60,7 @@ td {
 	float: left;
 }
 body {
-	background-color: darkgreen;
+	background-color: darkblue;
 }
 h3 {
 	color:white;

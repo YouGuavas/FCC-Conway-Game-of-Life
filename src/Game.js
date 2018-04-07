@@ -145,6 +145,9 @@ export class Game extends Component {
 			})
 		})
 	}
+	allowHover() {
+		this.state.hovering ? this.setState({hovering:false}) : this.setState({hovering:true});
+	}
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -154,13 +157,15 @@ export class Game extends Component {
 			running:0,
 			activeButton:'40x20',
 			speed:300,
-			generation: 0
+			generation: 0,
+			hovering: true
 		}
 		//Game Functions
 		this.handleCellClick = this.handleCellClick.bind(this);
 		this.createCells = this.createCells.bind(this);
 		this.gameOfLife = this.gameOfLife.bind(this);
 		//Button Functions
+		this.allowHover = this.allowHover.bind(this);
 		this.setDimensions = this.setDimensions.bind(this);
 		this.clear = this.clear.bind(this);
 		this.start = this.start.bind(this);
@@ -180,8 +185,9 @@ export class Game extends Component {
 					<Button val="Run" handleClick={this.start} className={this.state.running === 1 ? 'active' : ''}/>
 					<Button val="Pause" handleClick={this.pause} className={this.state.running === 0 ? 'active' : ''}/>
 					<Button val="Clear" handleClick={this.clear} />
+					<Button val="Hovering" handleClick={this.allowHover} className={this.state.hovering === true ? 'active' : ''}/>
 				</section>
-				<Cells height={this.state.height} width={this.state.height} cells={this.state.cells} handleClick={this.handleCellClick}/>
+				<Cells allowHover={this.state.hovering} height={this.state.height} width={this.state.height} cells={this.state.cells} handleClick={this.handleCellClick} handleHover={this.handleCellClick}/>
 				<section>
 				 <Button val="Slow" className={this.state.speed=== 300 ? 'active' : ''} handleClick={() => {this.setTime(300)}}/>
 				 <Button val="Fast" className={this.state.speed=== 5 ? 'active' : ''} handleClick={() => {this.setTime(5)}}/>
